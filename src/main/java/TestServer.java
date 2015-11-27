@@ -25,7 +25,10 @@ import io.netty.handler.codec.http.HttpVersion;
 public class TestServer {
 
     public static void main(String[] args) throws Exception {
-        int port = 4000; // Integer.parseInt(args[0])
+        int port = 4000;
+        if (args.length >= 1) {
+            port = Integer.parseInt(args[0]);
+        }
         new TestServer(port).start();
     }
 
