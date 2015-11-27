@@ -25,7 +25,8 @@ import io.netty.handler.codec.http.HttpVersion;
 public class TestServer {
 
     public static void main(String[] args) throws Exception {
-        new TestServer(Integer.parseInt(args[0])).start();
+        int port = 4000; // Integer.parseInt(args[0])
+        new TestServer(port).start();
     }
 
     private final int port;
@@ -43,7 +44,7 @@ public class TestServer {
     public ServerBootstrap getServerBootstrap() {
         ServerBootstrap bootstrap = new ServerBootstrap();
         final EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        final EventLoopGroup workerGroup = new NioEventLoopGroup(availableProcessors);
+        final EventLoopGroup workerGroup = new NioEventLoopGroup(1);
 
         bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
                 .childHandler(new ChannelInitializer<SocketChannel>() {
@@ -55,7 +56,7 @@ public class TestServer {
                     }
                 });
 
-        bootstrap.childOption(ChannelOption.SO_LINGER, 100000);
+        // bootstrap.childOption(ChannelOption.SO_LINGER, 1);
         bootstrap.childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
 
         return bootstrap;
