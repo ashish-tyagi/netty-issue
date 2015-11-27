@@ -25,7 +25,7 @@ import io.netty.handler.codec.http.HttpVersion;
 public class TestServer {
 
     public static void main(String[] args) throws Exception {
-        new TestServer(4000).start();
+        new TestServer(Integer.parseInt(args[0])).start();
     }
 
     private final int port;
@@ -55,7 +55,7 @@ public class TestServer {
                     }
                 });
 
-        bootstrap.childOption(ChannelOption.SO_LINGER, 1000);
+        bootstrap.childOption(ChannelOption.SO_LINGER, 100000);
         bootstrap.childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
 
         return bootstrap;
